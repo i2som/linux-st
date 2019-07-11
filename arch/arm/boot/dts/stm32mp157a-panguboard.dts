@@ -14,7 +14,7 @@
 
 / {
 	model = "i2SOM PanGu Board";
-	compatible = "i2som,pangu", "st,stm32mp157";
+	compatible = "i2som,panguboard", "st,stm32mp157";
 
 	aliases {
 		ethernet0 = &ethernet0;
@@ -229,23 +229,6 @@
 		default-brightness-level = <6>;
 		status = "okay";
 	};
-
-/*
-	panel_rgb: panel-rgb {
-		compatible = "innolux,at070tn92";
-		pinctrl-names = "default", "sleep";
-		pinctrl-0 = <&ltdc_pins_b>;
-		pinctrl-1 = <&ltdc_pins_sleep_b>;
-		backlight = <&panel_backlight>;
-		status = "disabled";
-
-		port {
-			panel_in_rgb: endpoint {
-				remote-endpoint = <&ltdc_out_rgb>;
-			};
-		};
-	};
-*/
 };
 
 &pinctrl {
@@ -313,6 +296,39 @@
 		};
 	};
 
+	dcmi_pins_b: dcmi-1 {
+				pins {
+					pinmux = <STM32_PINMUX('H', 8,  AF13)>,/* DCMI_HSYNC */
+						 <STM32_PINMUX('B', 7,  AF13)>,/* DCMI_VSYNC */
+						 <STM32_PINMUX('A', 6,  AF13)>,/* DCMI_PIXCLK */
+						 <STM32_PINMUX('H', 9,  AF13)>,/* DCMI_D0 */
+						 <STM32_PINMUX('H', 10, AF13)>,/* DCMI_D1 */
+						 <STM32_PINMUX('H', 11, AF13)>,/* DCMI_D2 */
+						 <STM32_PINMUX('H', 12, AF13)>,/* DCMI_D3 */
+						 <STM32_PINMUX('H', 14, AF13)>,/* DCMI_D4 */
+						 <STM32_PINMUX('I', 4,  AF13)>,/* DCMI_D5 */
+						 <STM32_PINMUX('B', 8,  AF13)>,/* DCMI_D6 */
+						 <STM32_PINMUX('E', 6,  AF13)>;/* DCMI_D7 */
+					bias-disable;
+				};
+			};
+
+			dcmi_sleep_pins_b: dcmi-sleep-1 {
+				pins {
+					pinmux = <STM32_PINMUX('H', 8,  ANALOG)>,/* DCMI_HSYNC */
+						 <STM32_PINMUX('B', 7,  ANALOG)>,/* DCMI_VSYNC */
+						 <STM32_PINMUX('A', 6,  ANALOG)>,/* DCMI_PIXCLK */
+						 <STM32_PINMUX('H', 9,  ANALOG)>,/* DCMI_D0 */
+						 <STM32_PINMUX('H', 10, ANALOG)>,/* DCMI_D1 */
+						 <STM32_PINMUX('H', 11, ANALOG)>,/* DCMI_D2 */
+						 <STM32_PINMUX('H', 12, ANALOG)>,/* DCMI_D3 */
+						 <STM32_PINMUX('H', 14, ANALOG)>,/* DCMI_D4 */
+						 <STM32_PINMUX('I', 4,  ANALOG)>,/* DCMI_D5 */
+						 <STM32_PINMUX('B', 8,  ANALOG)>,/* DCMI_D6 */
+						 <STM32_PINMUX('E', 6,  ANALOG)>;/* DCMI_D7 */
+				};
+			};
+
 };
 
 &cec {
@@ -371,10 +387,10 @@
 	ft5x06: ft5x06@38 {
 		compatible = "edt,edt-ft5306";
 		reg = <0x38>;
-		interrupts = <8 IRQ_TYPE_EDGE_FALLING>;
+		interrupts = <7 IRQ_TYPE_EDGE_FALLING>;
 		interrupt-parent = <&gpiog>;
 		interrupt-controller;
-		reset-gpios = <&gpiog 7 GPIO_ACTIVE_LOW>;
+		reset-gpios = <&gpiog 8 GPIO_ACTIVE_LOW>;
 		status = "okay";
 	};
 
@@ -437,7 +453,7 @@
 		};
 	};
 
-	hdmi-transmitter@39 {
+	hdmi: hdmi-transmitter@39 {
 		compatible = "sil,sii9022";
 		reg = <0x39>;
 		iovcc-supply = <&v3v3_hdmi>;
@@ -510,6 +526,7 @@
 			mclk-fs = <256>;
 		};
 	};
+
 };
 
 &ipcc {
@@ -707,8 +724,8 @@
 &dcmi {
 	status = "okay";
 	pinctrl-names = "default", "sleep";
-	pinctrl-0 = <&dcmi_pins_a>;
-	pinctrl-1 = <&dcmi_sleep_pins_a>;
+	pinctrl-0 = <&dcmi_pins_b>;
+	pinctrl-1 = <&dcmi_sleep_pins_b>;
 
 	port {
 		dcmi_0: endpoint {
