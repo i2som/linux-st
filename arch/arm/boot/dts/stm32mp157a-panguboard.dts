@@ -384,16 +384,6 @@
 	/delete-property/dmas;
 	/delete-property/dma-names;
 
-	ft5x06: ft5x06@38 {
-		compatible = "edt,edt-ft5306";
-		reg = <0x38>;
-		interrupts = <7 IRQ_TYPE_EDGE_FALLING>;
-		interrupt-parent = <&gpiog>;
-		interrupt-controller;
-		reset-gpios = <&gpiog 8 GPIO_ACTIVE_LOW>;
-		status = "okay";
-	};
-
 	tsc2007: tsc2007@48 {
 		compatible = "ti,tsc2007";
 		reg = <0x48>;
