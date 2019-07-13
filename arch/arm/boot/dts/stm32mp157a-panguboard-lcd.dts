@@ -33,10 +33,10 @@
 	ft5x06: ft5x06@38 {
 		compatible = "edt,edt-ft5306";
 		reg = <0x38>;
-		interrupts = <8 IRQ_TYPE_EDGE_FALLING>;
+		interrupts = <7 IRQ_TYPE_EDGE_FALLING>;
 		interrupt-parent = <&gpiog>;
 		interrupt-controller;
-		reset-gpios = <&gpiog 7 GPIO_ACTIVE_LOW>;
+		reset-gpios = <&gpiog 8 GPIO_ACTIVE_LOW>;
 		status = "okay";
 	};
 };
