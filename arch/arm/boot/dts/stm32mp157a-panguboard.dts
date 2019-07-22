@@ -378,12 +378,13 @@
 	pinctrl-names = "default", "sleep";
 	pinctrl-0 = <&i2c2_pins_a>;
 	pinctrl-1 = <&i2c2_pins_sleep_a>;
-	/*i2c-scl-rising-time-ns = <100>;
-	i2c-scl-falling-time-ns = <7>;*/
+	i2c-scl-rising-time-ns = <100>;
+	i2c-scl-falling-time-ns = <7>;
 	status = "okay";
 	/delete-property/dmas;
 	/delete-property/dma-names;
 
+/*
 	tsc2007: tsc2007@48 {
 		compatible = "ti,tsc2007";
 		reg = <0x48>;
@@ -392,9 +393,8 @@
 		interrupt-controller;
 		gpios = <&gpioi 8 GPIO_ACTIVE_LOW>;
 		ti,x-plate-ohms = <660>;
-		wakeup-source;
 	};
-
+*/
 };
 
 &i2c5 {
