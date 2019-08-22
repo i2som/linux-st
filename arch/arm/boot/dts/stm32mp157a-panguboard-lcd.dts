@@ -14,6 +14,8 @@
 
 	panel_rgb: panel-rgb {
 		compatible = "innolux,at070tn92";
+		//compatible = "innolux,zj070na-01p";
+		//compatible = "innolux,at043tn24";
 		pinctrl-names = "default", "sleep";
 		pinctrl-0 = <&ltdc_pins_b>;
 		pinctrl-1 = <&ltdc_pins_sleep_b>;
@@ -38,6 +40,26 @@
 		interrupt-controller;
 		reset-gpios = <&gpiog 8 GPIO_ACTIVE_LOW>;
 		status = "okay";
+	};
+
+	gt9147@5d {
+		compatible = "goodix,gt9147";
+		reg = <0x5d>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&gt9147_irq>;
+		irq-gpios = <&gpiog 7 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpiog 8 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+};
+
+&pinctrl {
+	gt9147_irq:gt9147_irq {
+		pins {
+			pinmux = <STM32_PINMUX('G', 7, GPIO)>; /* PG7.GPIO */
+			bias-pull-down;
+			drive-push-pull;
+		};
 	};
 };
 
