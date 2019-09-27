@@ -932,7 +932,8 @@ dtb-$(CONFIG_ARCH_STM32) += \
 	stm32mp157c-ev1-m4-examples.dtb \
 	stm32mp157a-panguboard.dtb \
 	stm32mp157a-panguboard-mipi.dtb \
-	stm32mp157a-panguboard-lcd.dtb
+	stm32mp157a-panguboard-lcd043p800c.dtb \
+	stm32mp157a-panguboard-lcd070p1024c.dtb
 dtb-$(CONFIG_MACH_SUN4I) += \
 	sun4i-a10-a1000.dtb \
 	sun4i-a10-ba10-tvbox.dtb \
