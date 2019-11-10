@@ -83,8 +83,8 @@
 		#address-cells = <1>;
 		#size-cells = <0>;
 
-		ltdc_ep1_out: endpoint@2 {
-			reg = <2>;
+		ltdc_ep1_out: endpoint@1 {
+			reg = <1>;
 			remote-endpoint = <&dsi_in>;
 		};
 	};
