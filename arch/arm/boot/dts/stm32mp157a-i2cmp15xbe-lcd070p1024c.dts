@@ -6,7 +6,7 @@
 
 /dts-v1/;
 
-#include "stm32mp157a-i2cmp15xbn.dts"
+#include "stm32mp157a-i2cmp15xbe.dts"
 
 &panel_rgb {
 	compatible = "innolux,zj070na-01p";
