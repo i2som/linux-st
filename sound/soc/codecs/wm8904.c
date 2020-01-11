@@ -2077,6 +2077,12 @@ static int wm8904_probe(struct snd_soc_component *component)
 
 	return 0;
 }
+static int wm8904_of_xlate_dai_id(struct snd_soc_component *component,
+				  struct device_node *endpoint)
+{
+	/* return dai id 0, whatever the endpoint index */
+	return 0;
+}
 
 static void wm8904_remove(struct snd_soc_component *component)
 {
@@ -2090,6 +2096,7 @@ static const struct snd_soc_component_driver soc_component_dev_wm8904 = {
 	.probe			= wm8904_probe,
 	.remove			= wm8904_remove,
 	.set_bias_level		= wm8904_set_bias_level,
+	.of_xlate_dai_id	= wm8904_of_xlate_dai_id,
 	.use_pmdown_time	= 1,
 	.endianness		= 1,
 	.non_legacy_dai_naming	= 1,
