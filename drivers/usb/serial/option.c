@@ -441,6 +441,7 @@ static void option_instat_callback(struct urb *urb);
 
 /* YUGA products  www.yuga-info.com gavin.kx@qq.com */
 #define YUGA_VENDOR_ID				0x257A
+#define YUGA_VENDOR_CLM920_AC3			0x1286
 #define YUGA_PRODUCT_CEM600			0x1601
 #define YUGA_PRODUCT_CEM610			0x1602
 #define YUGA_PRODUCT_CEM500			0x1603
@@ -493,6 +494,8 @@ static void option_instat_callback(struct urb *urb);
 #define YUGA_PRODUCT_CLU516			0x360C
 #define YUGA_PRODUCT_CLU528			0x360D
 #define YUGA_PRODUCT_CLU526			0x360F
+
+#define YUGA_PRODUCT_CLM920_AC3			0x4E3C
 
 /* Viettel products */
 #define VIETTEL_VENDOR_ID			0x2262
@@ -1904,6 +1907,7 @@ static const struct usb_device_id option_ids[] = {
 	{ USB_DEVICE(YUGA_VENDOR_ID, YUGA_PRODUCT_CWU581) },
 	{ USB_DEVICE(YUGA_VENDOR_ID, YUGA_PRODUCT_CWU582) },
 	{ USB_DEVICE(YUGA_VENDOR_ID, YUGA_PRODUCT_CWU583) },
+	{ USB_DEVICE(YUGA_VENDOR_CLM920_AC3, YUGA_PRODUCT_CLM920_AC3) },
 	{ USB_DEVICE_AND_INTERFACE_INFO(VIETTEL_VENDOR_ID, VIETTEL_PRODUCT_VT1000, 0xff, 0xff, 0xff) },
 	{ USB_DEVICE_AND_INTERFACE_INFO(ZD_VENDOR_ID, ZD_PRODUCT_7000, 0xff, 0xff, 0xff) },
 	{ USB_DEVICE(LG_VENDOR_ID, LG_PRODUCT_L02C) }, /* docomo L-02C modem */
@@ -2037,6 +2041,13 @@ static int option_probe(struct usb_serial *serial,
 	 */
 	if (device_flags & NUMEP2 && iface_desc->bNumEndpoints != 2)
 		return -ENODEV;
+
+	if(serial->dev->descriptor.idVendor == YUGA_VENDOR_CLM920_AC3 &&
+		serial->dev->descriptor.idProduct == YUGA_PRODUCT_CLM920_AC3) {
+		if(serial->interface->cur_altsetting->desc.bInterfaceNumber == 0
+		   || serial->interface->cur_altsetting->desc.bInterfaceNumber == 1)
+			return -ENODEV;
+	}
 
 	/* Store the device flags so we can use them during attach. */
 	usb_set_serial_data(serial, (void *)device_flags);
