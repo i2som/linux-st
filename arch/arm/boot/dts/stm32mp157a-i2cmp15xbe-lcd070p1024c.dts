@@ -8,6 +8,29 @@
 
 #include "stm32mp157a-i2cmp15xbe.dts"
 
+&pinctrl {
+	gt9147_irq:gt9147_irq {
+		pins {
+			pinmux = <STM32_PINMUX('G', 7, GPIO)>; /* PG7.GPIO */
+			bias-pull-down;
+			drive-push-pull;
+		};
+	};
+};
+
 &panel_rgb {
 	compatible = "innolux,zj070na-01p";
+};
+
+&i2c1 {
+
+	ft5x06: ft5x06@38 {
+		compatible = "edt,edt-ft5306";
+		reg = <0x38>;
+		interrupts = <7 IRQ_TYPE_EDGE_FALLING>;
+		interrupt-parent = <&gpiog>;
+		interrupt-controller;
+		reset-gpios = <&gpiof 13 GPIO_ACTIVE_LOW>;
+		status = "okay";
+	};
 };

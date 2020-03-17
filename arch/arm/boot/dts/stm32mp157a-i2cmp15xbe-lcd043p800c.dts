@@ -11,3 +11,16 @@
 &panel_rgb {
 	compatible = "innolux,at070tn92";
 };
+
+&i2c1 {
+
+	gt9147@5d {
+		compatible = "goodix,gt9147";
+		reg = <0x5d>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&gt9147_irq>;
+		irq-gpios = <&gpiog 7 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpiof 13 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+};
