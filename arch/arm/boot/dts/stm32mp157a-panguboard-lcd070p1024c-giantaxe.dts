@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
 /*
- * Copyright (C) STMicroelectronics 2018 - All Rights Reserved
- * Author: Alexandre Torgue <alexandre.torgue@st.com>.
+ * Copyright (C) i2SOM 2018 - All Rights Reserved
+ * Author: Steve Chen <steve.chen@i2som.tech>.
  */
 
 /dts-v1/;
 
-#include "stm32mp157a-panguboard.dts"
+#include "stm32mp157a-panguboard-lcd.dts"
 
 / {
 	model = "i2SOM PanGu Board and GiantAxe";
@@ -24,7 +24,10 @@
 		compatible = "mmc-pwrseq-simple";
 		reset-gpios = <&gpiof 3 GPIO_ACTIVE_LOW>;
 	};
+};
 
+&panel_rgb {
+	compatible = "innolux,zj070na-01p";
 };
 
 &pinctrl {
@@ -105,20 +108,6 @@
 		};
 	};
 
-	timer1_pins: pwm1-test-0 {
-		pins {
-			pinmux = <STM32_PINMUX('E', 9, AF1)>, /* TIM1_CH1 */
-				 <STM32_PINMUX('E', 8, AF1)>, /* TIM1_CH1N */
-				 <STM32_PINMUX('E', 11, AF1)>, /* TIM1_CH2 */
-				 <STM32_PINMUX('E', 10, AF1)>, /* TIM1_CH2N */
-				 <STM32_PINMUX('E', 13, AF1)>, /* TIM1_CH3 */
-				 <STM32_PINMUX('E', 12, AF1)>, /* TIM1_CH3N */
-				 <STM32_PINMUX('E', 14, AF1)>; /* TIM1_CH4 */
-			bias-pull-down;
-			drive-push-pull;
-			slew-rate = <0>;
-		};
-	};
 };
 
 &pinctrl_z {
@@ -191,16 +180,6 @@
 				 <STM32_PINMUX('Z', 2, ANALOG)>; /* SPI4_MOSI */
 		};
 	};
-};
-
-&timers1 {
-	status = "disabled";
-};
-
-&m4_timers1 {
-	pinctrl-names = "rproc_default";
-	pinctrl-0 = <&timer1_pins>;
-	status = "okay";
 };
 
 &i2c6 {
