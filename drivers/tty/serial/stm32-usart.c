@@ -35,6 +35,7 @@
 #include <linux/sysrq.h>
 #include <linux/tty_flip.h>
 #include <linux/tty.h>
+#include <linux/gpio/consumer.h>
 
 #include "stm32-usart.h"
 
@@ -148,6 +149,9 @@ static int stm32_config_rs485(struct uart_port *port,
 			       USART_CR1_DEDT_MASK | USART_CR1_DEAT_MASK);
 	}
 
+	if (stm32_port->txen_gpio)
+		gpiod_set_value(stm32_port->txen_gpio, 0);
+
 	stm32_set_bits(port, ofs->cr1, BIT(cfg->uart_enable_bit));
 	spin_unlock_irqrestore(&port->lock, flags);
 
@@ -158,6 +162,7 @@ static int stm32_init_rs485(struct uart_port *port,
 			    struct platform_device *pdev)
 {
 	struct serial_rs485 *rs485conf = &port->rs485;
+	struct stm32_port *stm32_port = to_stm32_port(port);
 
 	rs485conf->flags = 0;
 	rs485conf->delay_rts_before_send = 0;
@@ -167,6 +172,8 @@ static int stm32_init_rs485(struct uart_port *port,
 		return -ENODEV;
 
 	uart_get_rs485_mode(&pdev->dev, rs485conf);
+
+	stm32_ports->txen_gpio = devm_gpiod_get(&pdev->dev, "rs485de", GPIOD_OUT_LOW);
 
 	return 0;
 }
@@ -568,15 +575,24 @@ static void stm32_stop_tx(struct uart_port *port)
 		dmaengine_terminate_async(stm32_port->tx_ch);
 		stm32_clr_bits(port, ofs->cr3, USART_CR3_DMAT);
 	}
+
+	if (stm32_port->txen_gpio) {
+		gpiod_set_value(stm32_port->txen_gpio, 0);
+	}
 }
 
 /* There are probably characters waiting to be transmitted. */
 static void stm32_start_tx(struct uart_port *port)
 {
 	struct circ_buf *xmit = &port->state->xmit;
+	struct stm32_port *stm32_port = to_stm32_port(port);
 
 	if (uart_circ_empty(xmit))
 		return;
+
+	if (stm32_port->txen_gpio) {
+		gpiod_set_value(stm32_port->txen_gpio, 1);
+	}
 
 	stm32_transmit_chars(port);
 }

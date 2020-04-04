@@ -279,6 +279,7 @@ struct stm32_port {
 	int wakeirq;
 	struct pinctrl_state *console_pins;
 	int rdr_mask;		/* receive data register mask */
+	struct gpio_desc *txen_gpio;
 };
 
 static struct stm32_port stm32_ports[STM32_MAX_PORTS];
