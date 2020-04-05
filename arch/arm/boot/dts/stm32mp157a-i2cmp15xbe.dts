@@ -678,6 +678,10 @@
 		compatible = "snps,dwmac-mdio";
 		phy0: ethernet-phy@7 {
 			reg = <7>;
+			rxc-skew-ps = <1200>;
+			rxdv-skew-ps = <700>;
+			txc-skew-ps = <1200>;
+			txen-skew-ps = <700>;
 		};
 	};
 };
