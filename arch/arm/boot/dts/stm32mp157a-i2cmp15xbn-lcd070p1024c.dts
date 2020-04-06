@@ -11,3 +11,27 @@
 &panel_rgb {
 	compatible = "innolux,zj070na-01p";
 };
+
+&i2c1 {
+/*
+	tsc2007: tsc2007@48 {
+		compatible = "ti,tsc2007";
+		reg = <0x48>;
+		interrupt-parent = <&gpioi>;
+		interrupts = <8 IRQ_TYPE_EDGE_FALLING>;
+		interrupt-controller;
+		gpios = <&gpioi 8 GPIO_ACTIVE_LOW>;
+		ti,x-plate-ohms = <660>;
+	};
+*/
+	ft5x06: ft5x06@38 {
+		compatible = "edt,edt-ft5306";
+		reg = <0x38>;
+		interrupts = <7 IRQ_TYPE_EDGE_FALLING>;
+		interrupt-parent = <&gpiog>;
+		interrupt-controller;
+		reset-gpios = <&gpioc 13 GPIO_ACTIVE_LOW>;
+		status = "okay";
+	};
+};
+

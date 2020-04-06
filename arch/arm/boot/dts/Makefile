@@ -940,8 +940,13 @@ dtb-$(CONFIG_ARCH_STM32) += \
 	stm32mp157a-panguboard-lcd070p1024c-giantaxe.dtb \
 	stm32mp157a-i2cmp15xbn-lcd043p800c.dtb \
 	stm32mp157a-i2cmp15xbn-lcd070p1024c.dtb \
+	stm32mp157a-i2cmp15xbn-mipi.dtb \
 	stm32mp157a-i2cmp15xbe-lcd043p800c.dtb \
-	stm32mp157a-i2cmp15xbe-lcd070p1024c.dtb
+	stm32mp157a-i2cmp15xbe-lcd070p1024c.dtb \
+	stm32mp157a-i2cmp15xbe-mipi.dtb \
+	stm32mp157a-i2cmp15xbe-lcd043p800c-dualcan.dtb \
+	stm32mp157a-i2cmp15xbe-lcd070p1024c-dualcan.dtb \
+	stm32mp157a-i2cmp15xbe-mipi-dualcan.dtb
 dtb-$(CONFIG_MACH_SUN4I) += \
 	sun4i-a10-a1000.dtb \
 	sun4i-a10-ba10-tvbox.dtb \
