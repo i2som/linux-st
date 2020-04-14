@@ -173,7 +173,7 @@ static int stm32_init_rs485(struct uart_port *port,
 
 	uart_get_rs485_mode(&pdev->dev, rs485conf);
 
-	stm32_ports->txen_gpio = devm_gpiod_get(&pdev->dev, "rs485de", GPIOD_OUT_LOW);
+	stm32_port->txen_gpio = devm_gpiod_get_optional(&pdev->dev, "rs485de", GPIOD_OUT_LOW);
 
 	return 0;
 }
