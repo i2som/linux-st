@@ -762,5 +762,17 @@
 	regulator-min-microvolt = <2500000>;
 	regulator-max-microvolt = <2500000>;
 	vdda-supply = <&vdd>;
+	status = "disabled";
+};
+
+&adc {
+	vdda-supply = <&vdd>;
+	vref-supply = <&vdd>;
 	status = "okay";
+
+	adc1: adc@0 {
+		st,adc-channels = <0 1>;
+		st,min-sample-time-nsecs = <10000>;
+		status = "okay";
+	};
 };
