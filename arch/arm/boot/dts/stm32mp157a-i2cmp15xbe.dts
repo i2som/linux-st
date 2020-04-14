@@ -11,6 +11,7 @@
 #include "stm32mp157caa-pinctrl.dtsi"
 #include <dt-bindings/gpio/gpio.h>
 #include <dt-bindings/input/input.h>
+#include <dt-bindings/rtc/rtc-stm32.h>
 
 / {
 	model = "i2SOM i2C-MP15X-C Board";
@@ -647,6 +648,17 @@
 	};
 };
 
+&adc {
+	vref-supply = <&vdd>;
+	status = "okay";
+
+	adc1: adc@0 {
+		st,adc-channels = <0 1>;
+		st,min-sample-time-nsecs = <10000>;
+		status = "okay";
+	};
+};
+
 &cec {
 	status = "disabled";
 };
@@ -762,7 +774,7 @@
 		clock-names = "xclk";
 		DOVDD-supply = <&v2v8>;
 		powerdown-gpios = <&gpiof 3 GPIO_ACTIVE_HIGH>;
-		reset-gpios = <&gpioi 8 GPIO_ACTIVE_LOW>;
+		reset-gpios = <&gpioc 13 GPIO_ACTIVE_LOW>;
 		rotation = <180>;
 		status = "okay";
 
@@ -824,6 +836,9 @@
 };
 
 &rtc {
+	st,lsco = <RTC_OUT2_RMP>;
+	pinctrl-0 = <&rtc_out2_rmp_pins_a>;
+	pinctrl-names = "default";
 	status = "okay";
 };
 
@@ -1066,6 +1081,12 @@
 	pinctrl-1 = <&spi6_sleep_pins_a>;
 	cs-gpios = <&gpioz 3 0>;
 	status = "okay";
+
+	 spidev@0{
+		 compatible = "spidev";
+		 reg = <0>;
+		 spi-max-frequency = <32000000>;
+	};
 };
 
 &usbh_ehci {
@@ -1101,5 +1122,5 @@
 	regulator-min-microvolt = <2500000>;
 	regulator-max-microvolt = <2500000>;
 	vdda-supply = <&vdd>;
-	status = "okay";
+	status = "disabled";
 };
