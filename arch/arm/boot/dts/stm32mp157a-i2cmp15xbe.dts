@@ -613,9 +613,25 @@
 	pinctrl-0 = <&ethernet0_rgmii_pins_a>;
 	pinctrl-1 = <&ethernet0_rgmii_pins_sleep_a>;
 	pinctrl-names = "default", "sleep";
+	clock-names = "stmmaceth",
+		      "mac-clk-tx",
+		      "mac-clk-rx",
+		      "ethstp",
+		      "syscfg-clk",
+		      "eth-ck";
+	clocks = <&rcc ETHMAC>,
+		 <&rcc ETHTX>,
+		 <&rcc ETHRX>,
+		 <&rcc ETHSTP>,
+		 <&rcc SYSCFG>,
+		 <&rcc ETHCK_K>;
+	assigned-clocks = <&rcc ETHCK_K>;
+	assigned-clock-parents = <&rcc PLL4_P>;
+	assigned-clock-rates = <125000000>;
 	phy-mode = "rgmii";
 	max-speed = <1000>;
 	phy-handle = <&phy0>;
+	st,eth_clk_sel;
 	status = "okay";
 
 	mdio0 {
@@ -624,10 +640,27 @@
 		compatible = "snps,dwmac-mdio";
 		phy0: ethernet-phy@7 {
 			reg = <7>;
-			rxc-skew-ps = <1200>;
-			rxdv-skew-ps = <700>;
-			txc-skew-ps = <1200>;
-			txen-skew-ps = <700>;
+			/* REG 0x0008, 5 bits per skew */
+			txc-skew-ps  = <1800>;/* 900ps */
+			rxc-skew-ps  = <1320>;/* 420ps */
+
+			/* REG 0x0004, 4 bits per skew */
+			txen-skew-ps = <420>; /* 0ps */
+			rxdv-skew-ps = <420>; /* 0ps */
+
+			/* REG 0x0005, 4 bits per skew */
+			rxd0-skew-ps = <780>; /* 300ps */
+			rxd1-skew-ps = <780>; /* 360ps */
+			rxd2-skew-ps = <840>; /* 420ps */
+			rxd3-skew-ps = <900>; /* 480ps */
+
+			/* REG 0x0006, 4 bits per skew */
+			txd0-skew-ps = <0>;   /* -420ps */
+			txd1-skew-ps = <60>;  /* -360ps */
+			txd2-skew-ps = <120>; /* -300ps */
+			txd3-skew-ps = <180>; /* -240ps */
+
+			micrel,force-master;
 		};
 	};
 };
