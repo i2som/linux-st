@@ -12,7 +12,7 @@
 	compatible = "innolux,at070tn92";
 };
 
-&i2c1 {
+&gpio_i2c1 {
 
 	gt9147@5d {
 		compatible = "goodix,gt9147";

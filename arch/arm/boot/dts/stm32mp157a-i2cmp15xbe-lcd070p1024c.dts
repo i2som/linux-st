@@ -22,7 +22,7 @@
 	compatible = "innolux,zj070na-01p";
 };
 
-&i2c1 {
+&gpio_i2c1 {
 
 	ft5x06: ft5x06@38 {
 		compatible = "edt,edt-ft5306";

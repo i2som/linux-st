@@ -120,6 +120,16 @@
 		reset-gpios = <&gpiof 2 GPIO_ACTIVE_LOW>;
 	};
 
+	gpio_i2c1: gpio-i2c1 {
+		compatible = "i2c-gpio";
+		sda-gpios = <&gpiof 15 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+		scl-gpios = <&gpiof 14 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+		i2c-gpio,delay-us = <2>;    /* ~100 kHz */
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+	};
+
 	panel_backlight: panel-backlight {
 		compatible = "pwm-backlight";
 		pwms = <&pwm2 3 500000>;
@@ -676,9 +686,12 @@
 	pinctrl-1 = <&i2c1_pins_sleep_b>;
 	i2c-scl-rising-time-ns = <100>;
 	i2c-scl-falling-time-ns = <7>;
-	status = "okay";
+	status = "disabled";
 	/delete-property/dmas;
 	/delete-property/dma-names;
+};
+
+&gpio_i2c1 {
 
 	wm8904_codec: wm8904@1a {
 		compatible = "wlf,wm8904";
