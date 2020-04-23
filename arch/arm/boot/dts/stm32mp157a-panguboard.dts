@@ -106,13 +106,6 @@
 			linux,default-trigger = "heartbeat";
 			default-state = "on";
 		};
-
-		user1 {
-			label = "user1";
-			gpios = <&gpioh 6 GPIO_ACTIVE_LOW>;
-			default-state = "off";
-		};
-
 	};
 
 	keys {
