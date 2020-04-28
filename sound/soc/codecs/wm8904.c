@@ -804,7 +804,7 @@ static int out_pga_event(struct snd_soc_dapm_widget *w,
 		} while (--timeout);
 
 		if ((val & dcs_mask) != dcs_mask)
-			dev_warn(component->dev, "DC servo timed out\n");
+			dev_dbg(component->dev, "DC servo timed out\n");
 		else
 			dev_dbg(component->dev, "DC servo ready\n");
 
