@@ -949,7 +949,7 @@
 	pinctrl-0 = <&usart1_pins_a>;
 	pinctrl-1 = <&usart1_sleep_pins_a>;
 	pinctrl-2 = <&usart1_idle_pins_a>;
-	rs485de-gpios = <&gpiof 12 1>;
+	rs485de-gpios = <&gpiof 12 GPIO_ACTIVE_HIGH>;
 	status = "okay";
 };
 
@@ -984,7 +984,7 @@
 	pinctrl-0 = <&uart8_pins_a>;
 	pinctrl-1 = <&uart8_sleep_pins_a>;
 	pinctrl-2 = <&uart8_idle_pins_a>;
-	rs485de-gpios = <&gpioh 5 1>;
+	rs485de-gpios = <&gpioh 5 GPIO_ACTIVE_HIGH>;
 	status = "okay";
 };
 
