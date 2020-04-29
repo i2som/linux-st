@@ -595,6 +595,10 @@ static void stm32_start_tx(struct uart_port *port)
 	}
 
 	stm32_transmit_chars(port);
+
+	if (stm32_port->txen_gpio) {
+		gpiod_set_value(stm32_port->txen_gpio, 0);
+	}
 }
 
 /* Flush the transmit buffer. */
@@ -933,6 +937,11 @@ static const char *stm32_type(struct uart_port *port)
 
 static void stm32_release_port(struct uart_port *port)
 {
+	struct stm32_port *stm32_port = to_stm32_port(port);
+
+	if (stm32_port->txen_gpio) {
+		gpiod_set_value(stm32_port->txen_gpio, 0);
+	}
 }
 
 static int stm32_request_port(struct uart_port *port)
