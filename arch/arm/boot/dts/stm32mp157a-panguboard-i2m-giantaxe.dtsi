@@ -16,6 +16,32 @@
 		serial4 = &uart5;
 	};
 
+	lte_switch: regulator-lte-power {
+		compatible = "regulator-gpio";
+		regulator-name = "lte_switch";
+		regulator-min-microvolt = <1800000>;
+		regulator-max-microvolt = <3300000>;
+		regulator-type = "voltage";
+		regulator-always-on;
+
+		gpios = <&gpioe 1 GPIO_ACTIVE_HIGH>;
+		gpios-states = <1>;
+		states = <1800000 0x0 3300000 0x1>;
+	};
+
+	wifi_switch: regulator-wifi-power {
+		compatible = "regulator-gpio";
+		regulator-name = "wifi_switch";
+		regulator-min-microvolt = <1800000>;
+		regulator-max-microvolt = <3300000>;
+		regulator-type = "voltage";
+		regulator-always-on;
+
+		gpios = <&gpiof 12 GPIO_ACTIVE_LOW>;
+		gpios-states = <0>;
+		states = <1800000 0x1 3300000 0x0>;
+	};
+
 	wifi_pwrseq: wifi-pwrseq {
 		compatible = "mmc-pwrseq-simple";
 		reset-gpios = <&gpiof 3 GPIO_ACTIVE_LOW>;
