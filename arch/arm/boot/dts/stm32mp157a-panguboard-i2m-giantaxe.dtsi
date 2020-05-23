@@ -46,7 +46,6 @@
 		compatible = "mmc-pwrseq-simple";
 		reset-gpios = <&gpiof 3 GPIO_ACTIVE_LOW>;
 	};
-
 };
 
 &pinctrl {
@@ -274,10 +273,10 @@
 	rs485de-gpios = <&gpiog 9 GPIO_ACTIVE_HIGH>;
 };
 
-&spi6 {
+&spi1 {
 	pinctrl-names = "default", "sleep";
-	pinctrl-0 = <&spi6_pins_a>;
-	pinctrl-1 = <&spi6_sleep_pins_a>;
+	pinctrl-0 = <&spi1_pins_a>;
+	pinctrl-1 = <&spi1_sleep_pins_a>;
 	cs-gpios = <&gpioz 3 0>;
 	status = "okay";
 };
