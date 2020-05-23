@@ -271,7 +271,7 @@
 };
 
 &uart5 {
-	rs485de-gpios = <&gpiog 9 1>;
+	rs485de-gpios = <&gpiog 9 GPIO_ACTIVE_HIGH>;
 };
 
 &spi6 {
