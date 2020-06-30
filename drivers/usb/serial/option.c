@@ -247,6 +247,7 @@ static void option_instat_callback(struct urb *urb);
 #define QUECTEL_PRODUCT_BG96			0x0296
 #define QUECTEL_PRODUCT_EP06			0x0306
 #define QUECTEL_PRODUCT_EM12			0x0512
+#define QUECTEL_PRODUCT_EC200S			0x6002
 
 #define CMOTECH_VENDOR_ID			0x16d8
 #define CMOTECH_PRODUCT_6001			0x6001
@@ -1089,6 +1090,7 @@ static const struct usb_device_id option_ids[] = {
 	  .driver_info = RSVD(4) },
 	{ USB_DEVICE(QUECTEL_VENDOR_ID, QUECTEL_PRODUCT_BG96),
 	  .driver_info = RSVD(4) },
+	{ USB_DEVICE(QUECTEL_VENDOR_ID, QUECTEL_PRODUCT_EC200S)},
 	{ USB_DEVICE_AND_INTERFACE_INFO(QUECTEL_VENDOR_ID, QUECTEL_PRODUCT_EP06, 0xff, 0xff, 0xff),
 	  .driver_info = RSVD(1) | RSVD(2) | RSVD(3) | RSVD(4) | NUMEP2 },
 	{ USB_DEVICE_AND_INTERFACE_INFO(QUECTEL_VENDOR_ID, QUECTEL_PRODUCT_EP06, 0xff, 0, 0) },
@@ -2046,6 +2048,13 @@ static int option_probe(struct usb_serial *serial,
 		serial->dev->descriptor.idProduct == YUGA_PRODUCT_CLM920_AC3) {
 		if(serial->interface->cur_altsetting->desc.bInterfaceNumber == 0
 		   || serial->interface->cur_altsetting->desc.bInterfaceNumber == 1)
+			return -ENODEV;
+	}
+
+	if(serial->dev->descriptor.idVendor == QUECTEL_VENDOR_ID) {
+		__u16 idProduct = le16_to_cpu(serial->dev->descriptor.idProduct);
+
+		if (serial->interface->cur_altsetting->desc.bInterfaceClass != 0xFF)
 			return -ENODEV;
 	}
 
