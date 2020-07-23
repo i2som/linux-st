@@ -557,6 +557,11 @@ static void option_instat_callback(struct urb *urb);
 #define WETELECOM_PRODUCT_6802			0x6802
 #define WETELECOM_PRODUCT_WMD300		0x6803
 
+/* FIBOCOM products */
+#define FIBOCOM_VENDOR_ID 0x1782
+#define FIBOCOM_PRODUCT_L61031 0x4D10
+#define FIBOCOM_PRODUCT_L61032 0x4D11
+#define FIBOCOM_PRODUCT_L61033 0x4D11
 
 /* Device flags */
 
@@ -1974,6 +1979,9 @@ static const struct usb_device_id option_ids[] = {
 	  .driver_info = RSVD(4) | RSVD(5) },
 	{ USB_DEVICE_INTERFACE_CLASS(0x2cb7, 0x0105, 0xff),			/* Fibocom NL678 series */
 	  .driver_info = RSVD(6) },
+	{ USB_DEVICE(FIBOCOM_VENDOR_ID, FIBOCOM_PRODUCT_L61031) },
+	{ USB_DEVICE(FIBOCOM_VENDOR_ID, FIBOCOM_PRODUCT_L61032) },
+	{ USB_DEVICE(FIBOCOM_VENDOR_ID, FIBOCOM_PRODUCT_L61033) },
 	{ } /* Terminating entry */
 };
 MODULE_DEVICE_TABLE(usb, option_ids);
