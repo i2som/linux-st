@@ -446,10 +446,24 @@ static void stm32_transmit_chars(struct uart_port *port)
 	}
 
 	if (uart_circ_empty(xmit) || uart_tx_stopped(port)) {
+		u32 cr1;
+
 		if (stm32_port->fifoen)
 			stm32_clr_bits(port, ofs->cr3, USART_CR3_TXFTIE);
 		else
 			stm32_clr_bits(port, ofs->cr1, USART_CR1_TXEIE);
+
+		cr1 = readl_relaxed(port->membase + ofs->cr1);
+		if (cr1 & USART_CR1_TCIE) {
+			/* fifo empty & shift register empty */
+			if (stm32_port->txen_gpio)
+				gpiod_set_value(stm32_port->txen_gpio, 0);
+
+			stm32_clr_bits(port, ofs->cr1, USART_CR1_TCIE);
+		} else {
+			/* interrupt again when transfer complete */
+			stm32_set_bits(port, ofs->cr1, USART_CR1_TCIE);
+		}
 		return;
 	}
 
@@ -471,6 +485,8 @@ static void stm32_transmit_chars(struct uart_port *port)
 			stm32_clr_bits(port, ofs->cr3, USART_CR3_TXFTIE);
 		else
 			stm32_clr_bits(port, ofs->cr1, USART_CR1_TXEIE);
+
+		stm32_set_bits(port, ofs->cr1, USART_CR1_TCIE);
 	}
 }
 
@@ -595,10 +611,6 @@ static void stm32_start_tx(struct uart_port *port)
 	}
 
 	stm32_transmit_chars(port);
-
-	if (stm32_port->txen_gpio) {
-		gpiod_set_value(stm32_port->txen_gpio, 0);
-	}
 }
 
 /* Flush the transmit buffer. */
