@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+/*
+ * Copyright (C) i2SOM 2020 - All Rights Reserved
+ * Author: Steve Chen <steve.chen@i2som.tech>.
+ */
+
+/dts-v1/;
+
+#include "stm32mp157a-panguboard.dts"
+#include "stm32mp157a-panguboard-i2m-giantaxe.dtsi"
+#include "stm32mp157a-panguboard-i2m-giantaxe-cm4.dtsi"
+
+/ {
+	model = "i2SOM PanGu Board HDMI display and GiantAxe-CM4";
+	compatible = "i2som,panguboard", "st,stm32mp157";
+};

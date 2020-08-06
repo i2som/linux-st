@@ -932,12 +932,16 @@ dtb-$(CONFIG_ARCH_STM32) += \
 	stm32mp157c-ev1-m4-examples.dtb \
 	stm32mp157a-panguboard.dtb \
 	stm32mp157a-panguboard-hdmi-giantaxe.dtb \
+	stm32mp157a-panguboard-hdmi-giantaxe-cm4.dtb \
 	stm32mp157a-panguboard-mipi.dtb \
 	stm32mp157a-panguboard-mipi-giantaxe.dtb \
+	stm32mp157a-panguboard-mipi-giantaxe-cm4.dtb \
 	stm32mp157a-panguboard-lcd043p800c.dtb \
 	stm32mp157a-panguboard-lcd043p800c-giantaxe.dtb \
+	stm32mp157a-panguboard-lcd043p800c-giantaxe-cm4.dtb \
 	stm32mp157a-panguboard-lcd070p1024c.dtb \
 	stm32mp157a-panguboard-lcd070p1024c-giantaxe.dtb \
+	stm32mp157a-panguboard-lcd070p1024c-giantaxe-cm4.dtb \
 	stm32mp157a-i2cmp15xbn-lcd043p800c.dtb \
 	stm32mp157a-i2cmp15xbn-lcd070p1024c.dtb \
 	stm32mp157a-i2cmp15xbn-mipi.dtb \

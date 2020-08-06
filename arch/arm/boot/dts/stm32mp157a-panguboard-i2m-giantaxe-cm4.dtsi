@@ -1,0 +1,145 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+/*
+ * Copyright (C) i2SOM 2020 - All Rights Reserved
+ * Author: Steve Chen <steve.chen@i2som.tech>.
+ */
+
+&pinctrl {
+	leds_pins: leds_test-0 {
+		pins {
+			pinmux = <STM32_PINMUX('H', 6, GPIO)>;
+			bias-pull-up;
+			drive-push-pull;
+			output-low;
+			slew-rate = <0>;
+		};
+	};
+
+	leds_sleep_pins: leds_sleep_test-0 {
+		pins {
+			pinmux = <STM32_PINMUX('H', 6, ANALOG)>;
+		};
+	};
+
+	i2c5_pins_b: i2c5-pinsb-0 {
+		pins {
+			pinmux = <STM32_PINMUX('Z', 4, AF2)>, /* I2C5_SCL */
+				 <STM32_PINMUX('Z', 5, AF2)>; /* I2C5_SDA */
+			bias-disable;
+			drive-open-drain;
+			slew-rate = <0>;
+		};
+	};
+
+	i2c5_pins_sleep_b: i2c5-pinsb1 {
+		pins {
+			pinmux = <STM32_PINMUX('Z', 4, ANALOG)>, /* I2C5_SCL */
+				 <STM32_PINMUX('Z', 5, ANALOG)>; /* I2C5_SDA */
+		};
+	};
+
+};
+
+&m4_rproc {
+	m4_system_resources {
+		status = "okay";
+
+		m4_led: m4_led {
+			compatible = "rproc-srm-dev";
+			pinctrl-names = "rproc_default", "rproc_sleep";
+			pinctrl-0 = <&leds_pins>;
+			pinctrl-1 = <&leds_sleep_pins>;
+			status = "okay";
+		};
+	};
+};
+
+&adc {
+	status = "disabled";
+};
+
+&m4_adc {
+	status = "okay";
+};
+
+&dac {
+	status = "disabled";
+};
+
+&m4_dac {
+	status = "okay";
+};
+
+&timers1 {
+	status = "disabled";
+};
+
+&m4_timers1 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&timer1_pins>;
+	status = "okay";
+};
+
+&usart2 {
+	status = "disabled";
+};
+
+&m4_usart2 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&usart2_pins_b>;
+	status = "okay";
+};
+
+&uart5 {
+	status = "disabled";
+};
+
+&m4_uart5 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&uart5_pins_a>;
+	status = "okay";
+};
+
+&m_can1 {
+	status = "disabled";
+};
+
+&m4_m_can1 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&m_can1_pins_a>;
+	status = "okay";
+};
+
+&spi1 {
+	status = "disabled";	
+};
+
+&m4_spi1 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&spi1_pins_a>;
+	status = "okay";
+};
+
+&spi4 {
+	status = "disabled";	
+};
+
+&m4_spi4 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&spi4_pins_a>;
+	status = "okay";
+};
+
+&i2c6 {
+	status = "disabled";
+};
+
+&i2c5 {
+	status = "disabled";
+};
+
+&m4_i2c5 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&i2c5_pins_a>;
+	status = "okay";
+};
