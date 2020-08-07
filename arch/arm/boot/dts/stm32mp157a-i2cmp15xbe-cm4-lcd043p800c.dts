@@ -1,0 +1,27 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+/*
+ * Copyright (C) i2SOM 2018 - All Rights Reserved
+ * Author: Steve Chen <steve.chen@i2som.tech>.
+ */
+
+/dts-v1/;
+
+#include "stm32mp157a-i2cmp15xbe.dts"
+#include "stm32mp157a-i2cmp15xbe-cm4.dts"
+
+&panel_rgb {
+	compatible = "innolux,at070tn92";
+};
+
+&gpio_i2c1 {
+
+	gt9147@5d {
+		compatible = "goodix,gt9147";
+		reg = <0x5d>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&gt9147_irq>;
+		irq-gpios = <&gpiog 7 GPIO_ACTIVE_HIGH>;
+		reset-gpios = <&gpiof 13 GPIO_ACTIVE_HIGH>;
+		status = "okay";
+	};
+};

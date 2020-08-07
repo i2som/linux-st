@@ -1,0 +1,150 @@
+// SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+/*
+ * Copyright (C) i2SOM 2018 - All Rights Reserved
+ * Author: Steve Chen <steve.chen@i2som.tech>.
+ */
+
+/ {
+	model = "i2SOM i2X-MP15X-CM4 Board";
+	compatible = "i2som,i2cmp15xb", "st,stm32mp157";
+};
+
+&pinctrl {
+	leds_pins: leds_test-0 {
+		pins {
+			pinmux = <STM32_PINMUX('A', 13, GPIO)>;
+			bias-pull-up;
+			drive-push-pull;
+			output-low;
+			slew-rate = <0>;
+		};
+	};
+
+	leds_sleep_pins: leds_sleep_test-0 {
+		pins {
+			pinmux = <STM32_PINMUX('A', 13, ANALOG)>;
+		};
+	};
+
+	timer1_pins: timer1-0 {
+		pins {
+			pinmux = <STM32_PINMUX('K', 1, AF1)>, /* TIM1_CH1 */
+				 <STM32_PINMUX('K', 0, AF1)>, /* TIM1_CH1N */
+				 <STM32_PINMUX('E', 11, AF1)>, /* TIM1_CH2 */
+				 <STM32_PINMUX('J', 10, AF1)>, /* TIM1_CH2N */
+				 <STM32_PINMUX('E', 13, AF1)>, /* TIM1_CH3 */
+				 <STM32_PINMUX('E', 12, AF1)>, /* TIM1_CH3N */
+				 <STM32_PINMUX('E', 14, AF1)>, /* TIM1_CH4 */
+				 <STM32_PINMUX('E', 15, AF1)>; /* TIM1_BKIN */
+			bias-pull-down;
+			drive-push-pull;
+			slew-rate = <0>;
+		};
+	};
+};
+
+&pinctrl_z {
+
+	i2c5_pins_b: i2c5-pinsb-0 {
+		pins {
+			pinmux = <STM32_PINMUX('Z', 4, AF4)>, /* I2C5_SCL */
+				 <STM32_PINMUX('Z', 5, AF4)>; /* I2C5_SDA */
+			bias-disable;
+			drive-open-drain;
+			slew-rate = <0>;
+		};
+	};
+
+};
+
+&m4_rproc {
+	m4_system_resources {
+		status = "okay";
+		
+		m4_led: m4_led {
+			compatible = "rproc-srm-dev";
+			pinctrl-names = "rproc_default", "rproc_sleep";
+			pinctrl-0 = <&leds_pins>;
+			pinctrl-1 = <&leds_sleep_pins>;
+			status = "okay";
+		};
+	};
+};
+
+&timers1 {
+	status = "disabled";
+};
+
+&m4_timers1 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&timer1_pins>;
+	status = "okay";
+};
+
+&usart6 {
+	status = "disabled";	
+};
+
+&m4_usart6 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&usart6_pins_a>;
+	status = "okay";
+};
+
+&uart5 {
+	status = "disabled";
+};
+
+&m4_uart5 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&uart5_pins_a>;
+	status = "okay";
+};
+
+&uart8 {
+	status = "disabled";
+};
+
+&m4_uart8 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&uart8_pins_a>;
+	status = "okay";
+};
+
+&i2c6 {
+	status = "disabled";
+};
+
+&i2c5 {
+	status = "disabled";
+};
+
+&m4_i2c5 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&i2c5_pins_b>;
+	status = "okay";
+};
+
+&spi6 {
+	status = "disabled";
+};
+
+&spi1 {
+	status = "disabled";
+};
+
+&m4_spi1 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&spi1_pins_a>;
+	status = "okay";
+};
+
+&m_can1 {
+	status = "disabled";
+};
+
+&m4_m_can1 {
+	pinctrl-names = "rproc_default";
+	pinctrl-0 = <&m_can1_pins_b>;
+	status = "okay";	
+};

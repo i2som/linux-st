@@ -946,8 +946,11 @@ dtb-$(CONFIG_ARCH_STM32) += \
 	stm32mp157a-i2cmp15xbn-lcd070p1024c.dtb \
 	stm32mp157a-i2cmp15xbn-mipi.dtb \
 	stm32mp157a-i2cmp15xbe-lcd043p800c.dtb \
+	stm32mp157a-i2cmp15xbe-cm4-lcd043p800c.dtb \
 	stm32mp157a-i2cmp15xbe-lcd070p1024c.dtb \
+	stm32mp157a-i2cmp15xbe-cm4-lcd070p1024c.dtb \
 	stm32mp157a-i2cmp15xbe-mipi.dtb \
+	stm32mp157a-i2cmp15xbe-cm4-mipi.dtb \
 	stm32mp157a-i2cmp15xbe-lcd043p800c-dualcan.dtb \
 	stm32mp157a-i2cmp15xbe-lcd070p1024c-dualcan.dtb \
 	stm32mp157a-i2cmp15xbe-mipi-dualcan.dtb
